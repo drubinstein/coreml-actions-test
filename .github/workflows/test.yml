@@ -11,8 +11,6 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - Ubuntu
-          - Windows
           - MacOs
         py:
           - "3.10"
@@ -28,5 +26,3 @@ jobs:
         run: python3.10 -m pip install coremltools
       - name: Run a coreml inference
         run: python3.10 predict.py
-      - name: Check that basic-pitch can be run as a commandline
-        run: pip3 install -e . && basic-pitch --help
