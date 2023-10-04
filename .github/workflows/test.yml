@@ -1,0 +1,32 @@
+name: test
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    name: test ${{ matrix.py }} - ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - Ubuntu
+          - Windows
+          - MacOs
+        py:
+          - "3.10"
+    steps:
+      - name: Setup python for test ${{ matrix.py }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.py }}
+      - uses: actions/checkout@v3
+        # - name: Install soundlibs MacOs
+        #   run: brew install libsndfile
+      - name: Install dependencies
+        run: python3.10 -m pip install coremltools
+      - name: Run a coreml inference
+        run: python3.10 predict.py
+      - name: Check that basic-pitch can be run as a commandline
+        run: pip3 install -e . && basic-pitch --help
