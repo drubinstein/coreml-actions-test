@@ -23,6 +23,6 @@ jobs:
         # - name: Install soundlibs MacOs
         #   run: brew install libsndfile
       - name: Install dependencies
-        run: python3.10 -m pip install coremltools
+        run: python3.10 -m pip install coremltools onnxruntime numpy
       - name: Run a coreml inference
         run: python3.10 predict.py
